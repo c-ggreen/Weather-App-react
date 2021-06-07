@@ -6,7 +6,7 @@ class Background extends Component {
           <div>
             <video
               className="landing-page-video"
-              src="https://storage.coverr.co/videos/STGCDNDz2bG1wn01N22Z3JHauO931im1t?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6Ijg3NjdFMzIzRjlGQzEzN0E4QTAyIiwiaWF0IjoxNjIxMzQxNzU2fQ.ivjRk6kGOVuEJ89HsOivee137m82HDRqeg2qKPCj4Xo"
+              src="https://player.vimeo.com/external/488511938.sd.mp4?s=9d921919030285f55fe039e566410a5e867844af&profile_id=139&oauth2_token_id=57447761"
               autoPlay
               loop
               muted

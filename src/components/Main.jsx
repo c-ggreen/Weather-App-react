@@ -27,11 +27,11 @@ class Main extends Component {
       console.log(lat);
 
       // API key
-      const key = "ff34acb70a704aeb94b03010210706";
+      const key = process.env.REACT_APP_API_KEY;
 
       // API url
       const url = `http://api.weatherapi.com/v1/current.json?key=${key}&q=${lat},${long}&aqi=no`;
-      
+
       // API Request
       fetch(url)
         .then((response) => response.json())
