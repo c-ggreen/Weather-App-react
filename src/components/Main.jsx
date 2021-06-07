@@ -4,56 +4,51 @@ import Location from "./Location";
 import Temperature from "./Temperature";
 
 class Main extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       longitude: "",
       latitude: "",
+      dataTemp: "",
+      dataLoc: "",
+      condition: ""
     };
   }
 
-  // Responsible for getting the coordinates of the user.
-  getCoords = () => {
-    console.log("getCoords function is firing");
+  componentDidMount() {
+    // Getting the geolocation of the user
+    navigator.geolocation.getCurrentPosition((position) => {
 
-    // Using geolocation to get access to user coords
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        // Setting the state of the lat and long to the users specific positioning
-        this.setState({
-          longitude: position.coords.longitude,
-          latitude: position.coords.latitude,
+      // Setting the latitude and longitude to variables
+      let long = position.coords.longitude;
+      let lat = position.coords.latitude;
+
+      console.log(long);
+      console.log(lat);
+
+      // API key
+      const key = "ff34acb70a704aeb94b03010210706";
+
+      // API url
+      const url = `http://api.weatherapi.com/v1/current.json?key=${key}&q=${lat},${long}&aqi=no`;
+      
+      // API Request
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          this.setState({
+            dataTemp: data.current,
+            dataLoc: data.location,
+            condition: data.current.condition,
+          });
         });
 
-        // Checking that the values are present
-        console.log(this.state.longitude);
-        console.log(this.state.latitude);
+      this.setState({
+        longitude: long,
+        latitude: lat,
       });
-    } else {
-      alert("Error: Unknown location.");
-    }
-  };
-
-  getInfo = async(event) =>{
-
-    const long = this.state.longitude
-    const lat = this.state.latitude
-    const key = "1dcc93701d97ab7a939ecbe7c139bc60";
-
-    const url = `api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${key}`
-
-    try{
-        const response = await fetch(url)
-        const data = await response.json()
-        console.log(data);
-    }catch(err){
-        console.log(err);
-    }
-  }
-
-  componentDidMount() {
-    this.getCoords();
-    this.getInfo()
+    })
   }
 
   render() {
@@ -64,10 +59,16 @@ class Main extends Component {
           <Location
             longitude={this.state.longitude}
             latitude={this.state.latitude}
+            dataTemp={this.state.dataTemp}
+            dataLoc={this.state.dataLoc}
+            condition={this.state.condition}
           />
           <Temperature
             longitude={this.state.longitude}
             latitude={this.state.latitude}
+            dataTemp={this.state.dataTemp}
+            dataLoc={this.state.dataLoc}
+            condition={this.state.condition}
           />
           <p className="copywrite"> Chadwick Green &copy;</p>
         </div>
