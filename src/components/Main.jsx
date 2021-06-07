@@ -27,10 +27,10 @@ class Main extends Component {
       console.log(lat);
 
       // API key
-      const key = "1d593496cb784f7fba322749210706";
+      const key = process.env.REACT_APP_API_KEY;
 
       // API url
-      const url = `https://cors-anywhere.herokuapp.com/http://api.weatherapi.com/v1/current.json?key=${key}&q=${lat},${long}&aqi=no`;
+      const url = `https://api.weatherapi.com/v1/current.json?key=${key}&q=${lat},${long}&aqi=no`;
 
       // API Request
       fetch(url)
