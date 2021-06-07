@@ -40,7 +40,7 @@ class Main extends Component {
           this.setState({
             dataTemp: data.current,
             dataLoc: data.location,
-            condition: data.current.condition,
+            condition: data.current.condition
           });
         });
 
